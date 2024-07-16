@@ -1,0 +1,10 @@
+app component:
+-should store ids
+-should call api to get image on mount
+-assign those api's to an id
+-a 'shuffle' function wich reassigns id's to card component on render
+-store a score wich resets on error and display maximum score possible
+card component:
+-be assigned an id
+-display the image associated with the id
+-shuffle ids onclick
