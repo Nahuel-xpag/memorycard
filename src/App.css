@@ -1,3 +1,35 @@
+body{
+  background: linear-gradient(rgb(56, 158, 165), rgb(227, 229, 226));
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+.titleDiv{
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  height: 150px;
+  color: rgb(181, 221, 0);
+  text-shadow: 1px 1px 2px rgb(8, 8, 8);
+}
+.titleDiv h1{
+  flex-grow: 1;
+  font-size: 3rem;
+  width: 50%;
+  margin: 0;
+}
+.titleDiv h2{
+text-align: end;
+font-size: 2.5rem;
+width: 50%;
+margin: 0;
+position: fixed;
+
+} 
+.titleDiv p{
+  font-size: 1.5rem;
+  color: #ffffff;
+}
 .cardDiv{
   display: flex;
   flex-wrap: wrap;
@@ -5,13 +37,27 @@
 }
 .card{
   margin-top: 1rem;
-  border: 2px solid red;
+  border: 6px solid  rgba(0, 7, 99, 0.712);
   width: 300px;
   height: 400px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgb(2, 2, 2);
+  color:rgb(228, 228, 228);
+  background-color: #aac44d;
+}
+.card h1{
+  background: linear-gradient(-90deg, rgb(58, 17, 75), rgb(18, 208, 233));
+  border-radius: 12px;
 }
 .card:hover{
   cursor: pointer;
-  box-shadow: 6px 6px 20px 10px rgba(109, 37, 37, 0.452);
+  box-shadow: 6px 6px 20px 10px rgba(255, 255, 255, 0.452);
+}
+.image{
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80%;
 }

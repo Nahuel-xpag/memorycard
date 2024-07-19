@@ -8,78 +8,69 @@ function App() {
   const [score, setScore] = useState(0);
   const [pressedCards, setPressedCards] = useState([]);
   const [best, setBest] = useState(0);
-  const ids = [0,1,2,3,4,5,6,7,8,9,10,11];
+ 
   const api = 'https://pokeapi.co/api/v2/pokemon/';
+ 
+  function randomizer(n){
+    let random = [];
+    while(random.length < n){
+      let value = Math.floor(Math.random() * n);
+      if(!random.includes(value)){
+        random.push(value)
+      }
+    }
+    return random
+  };
+  let cardOrder = randomizer(12);
+  let nextPressed = pressedCards
   
   if(score > best) setBest(score);
   return (
     <>
-      <div className='scoreDiv'>Score: {score} Best: {best}</div>
+      <div className='titleDiv'>
+        <h1 className='title'>Pokemon memory game</h1>
+        <h2 className="score">Score: {score} <br></br> Best: {best}</h2>
+        <p>don't click on the same one twice.</p>
+        </div>
       <div className="cardDiv">
-        {ids.map(id =>{
-          return <Card id={id + 1} key={id}/>
+        {cardOrder.map((slot, index) =>{
+          return <Card id={index} key={index} imageId={slot}/>
         })}
       </div>
       
     </>
   )
-  /*function Card({ids, pressedCards, api}){
-    let nextPressed = pressedCards
-    async function getData(link){
-      const response = await fetch(link, {mode:'cors'});
-      const data = await response.json();
-      console.log(data.sprites.other)
-    }
-    function randomizer(n){
-      let random = [];
-      while(random.length < n){
-        let value = Math.floor(Math.random() * n);
-        if(!random.includes(value)){
-          random.push(value)
-        }
-      }
-      return random
-    };
-    let cardOrder = randomizer(ids.length);
-    return(
-      <div className='cardDiv'>
-      {cardOrder.map(card => {
-        return <div className='card' key={card}
-        onClick={() =>{
-          if(nextPressed.includes(card)){
-            setScore(0);
-            setPressedCards([])
-          }else{
-            setScore(score + 1); 
-          nextPressed.push(card);
-          setPressedCards(nextPressed);
-          }
-          console.log(pressedCards)
-        }}
-        style={{
-          'backgroundImage': getData(api+'flareon')
-        }}
-        >card {card} Here</div>})}
-      </div>
-     
-    )
-    
-  }*/
- function Card({id}){
+ function Card({id, imageId}){
   const [pokemon, setPokemon] = useState('loading');
-  async function getPokemon(id){
-    const getPokeData = await fetch(api + id);
+  const [pokename, setPokename] = useState('loading');
+  const link = api + (imageId + 26);
+  
+  async function getPokemon(link){
+    const getPokeData = await fetch(link);
     const pokeData = await getPokeData.json();
+    setPokename(pokeData.species.name);
     setPokemon(pokeData.sprites.other['official-artwork']['front_default'])
   }
   useEffect(() =>{
-    getPokemon(id);
+    getPokemon(link);
   },[pokemon]);
   
   return(
-   <div className='card' id={id}
-   style={{backgroundImage: `url(${pokemon})`}}>
-   
+   <div className="card" key={id + 'card'}
+   onClick={() =>{
+    if(nextPressed.includes(imageId)){
+      setScore(0);
+      setPressedCards([])
+    }else{
+      setScore(score + 1);
+    nextPressed.push(imageId);
+    setPressedCards(nextPressed);
+    }
+     }}>
+     <div className='image' key={id}
+     style={{backgroundImage: `url(${pokemon})`}}
+     ></div>
+     <h1 key={id + 'name'}>{pokename[0].toUpperCase()+pokename.slice(1)}</h1>
    </div>
   )
  }
